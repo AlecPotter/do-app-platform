@@ -66,7 +66,7 @@ func main() {
 		something := struct {
 			Hello string `json:"hello"`
 		}{
-			Hello: "World",
+			Hello: "world",
 		}
 		b, err := json.Marshal(something)
 		if err != nil {

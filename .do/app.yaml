@@ -1,6 +1,6 @@
-name: sample-golang
+name: do-app-platform
 services:
 - name: web
   github:
-    repo: digitalocean/sample-golang
+    repo: AlecPotter/do-app-platform
     branch: main

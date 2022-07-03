@@ -1,4 +1,4 @@
-module github.com/digitalocean/sample-golang
+module github.com/AlecPotter/do-app-platform
 
 go 1.13
 
