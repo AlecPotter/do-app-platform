@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"os"
@@ -59,6 +60,19 @@ func main() {
 		}
 		requestID := uuid.Must(uuid.NewV4())
 		fmt.Fprintf(w, requestID.String())
+	})
+
+	http.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
+		something := struct {
+			Hello string `json:"hello"`
+		}{
+			Hello: "World",
+		}
+		b, err := json.Marshal(something)
+		if err != nil {
+			panic(err)
+		}
+		w.Write(b)
 	})
 
 	http.HandleFunc("/headers", func(w http.ResponseWriter, r *http.Request) {
