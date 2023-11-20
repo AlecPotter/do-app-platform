@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"strconv"
@@ -78,7 +78,7 @@ func main() {
 
 	http.HandleFunc("/csp-report", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodPost {
-			body, err := io.ReadAll(r.Body)
+			body, err := ioutil.ReadAll(r.Body)
 			if err != nil {
 				http.Error(w, "Failed to read request body", http.StatusBadRequest)
 				return
