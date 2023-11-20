@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 	"os"
 	"strconv"
@@ -73,6 +74,24 @@ func main() {
 			panic(err)
 		}
 		w.Write(b)
+	})
+
+	http.HandleFunc("/csp-report", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == http.MethodPost {
+			body, err := io.ReadAll(r.Body)
+			if err != nil {
+				http.Error(w, "Failed to read request body", http.StatusBadRequest)
+				return
+			}
+
+			fmt.Println("Received CSP violation report:")
+			fmt.Println(string(body))
+
+			w.WriteHeader(http.StatusNoContent)
+			return
+		}
+
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 	})
 
 	http.HandleFunc("/headers", func(w http.ResponseWriter, r *http.Request) {
